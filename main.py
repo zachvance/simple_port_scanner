@@ -44,13 +44,13 @@ class ScanQuery:
         self.open: list = []
         self.threads: list = []
 
-    def create_port_list(self):
+    def create_port_list(self) -> None:
         all_ports = range(65535)
         chunks = 5
         li = np.array_split(all_ports, chunks)
         self.port_list = li
 
-    def full_scan(self):
+    def full_scan(self) -> None:
         """~88 seconds to complete"""
 
         all_ports = range(65535)
@@ -67,7 +67,7 @@ class ScanQuery:
                 thread.start()
             self.join_threads()
 
-    def list_scan(self):
+    def list_scan(self) -> None:
         """Attempts a connection to each port in self.port_list. Each attempt receives it's own thread."""
         for port in self.port_list:
             thread = Thread(target=self.connect_to_port, args=(port,))
@@ -76,7 +76,7 @@ class ScanQuery:
 
         self.join_threads()
 
-    def connect_to_port(self, port):
+    def connect_to_port(self, port: int) -> None:
         """Connect to a port; if it accepts the connection, append the port to the self.open attribute."""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         result = sock.connect_ex((self.host, port))
@@ -84,12 +84,12 @@ class ScanQuery:
             self.open.append(port)
         sock.close()
 
-    def join_threads(self):
+    def join_threads(self) -> None:
         """Wait for the threads in self.threads to finish."""
         for thread in self.threads:
             thread.join()
 
-    def create_hosts_list(self, starting_address, ending_address):
+    def create_hosts_list(self, starting_address, ending_address) -> None:
         """Todo: Split this method up."""
         self.hosts_list = []  # Clear hosts list
 
@@ -116,7 +116,7 @@ class ScanQuery:
                 address = f"{network1}.{network2}.{i}.{j}"
                 self.hosts_list.append(address)
 
-    def results(self):
+    def results(self) -> None:
         if self.open:
             print("[+] Open ports:")
             for item in self.open:
@@ -125,7 +125,7 @@ class ScanQuery:
             print("[+] No open ports found.")
 
 
-def limit(input_value: int, limit_value) -> int:
+def limit(input_value: int, limit_value: int) -> int:
     if input_value > limit_value:
         return limit_value
     else:
