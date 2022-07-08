@@ -18,7 +18,7 @@ This in itself is easily accomplished in 2 or 3 lines of code, but would only al
 port. My next task would be to expand the functionality to work with a range of addresses, output all of the results,
 and take user input.
 
-I started by creating a class, 'ScanQuery', which holds the variables related to the scan and methods for different
+I started by creating a class, `ScanQuery`, which holds the variables related to the scan and methods for different
 scan types.
 
 Everything was going well, until I started providing longer lists of ports to check; every additional port was adding
@@ -32,7 +32,7 @@ situation that warranted using it.
 Threading cut down the run times for large lists of ports significantly - scans were now completing in ~3 seconds of
 total run time, regardless of the number of connections I was making. Until I tried to scan all the ports on a host.
 It started okay, but by the time I reached around port 18000, my machine would choke and freeze up. 65355 threads would
-be out of the question, so I decided to split my list range up into chunks. For this, I used numpy's array_split(),
+be out of the question, so I decided to split my list range up into chunks. For this, I used numpy's `array_split()`,
 which allows you to split a list into equal chunks (referred to as indices or sections in the numpy documentation), and
 settled on '5' as being the optimal number of sub lists.
 
