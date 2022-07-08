@@ -39,9 +39,16 @@ class Menu:
 class ScanQuery:
     def __init__(self):
         self.host = "127.0.0.1"
-        self.port_list = [21, 80, 110, 143, 443, 993, 8080]
-        self.open = []
-        self.threads = []
+        self.hosts_list: list = ["127.0.0.1"]
+        self.port_list: list = [21, 80, 110, 143, 443, 993, 8080]
+        self.open: list = []
+        self.threads: list = []
+
+    def create_port_list(self):
+        all_ports = range(65535)
+        chunks = 5
+        li = np.array_split(all_ports, chunks)
+        self.port_list = li
 
     def full_scan(self):
         """~88 seconds to complete"""
@@ -82,6 +89,33 @@ class ScanQuery:
         for thread in self.threads:
             thread.join()
 
+    def create_hosts_list(self, starting_address, ending_address):
+        """Todo: Split this method up."""
+        self.hosts_list = []  # Clear hosts list
+
+        start = starting_address.split(".")
+        end = ending_address.split(".")
+
+        # Get the two "network" sections of the IP address
+        network1 = start[0]
+        network2 = start[1]
+
+        # Get the first part of the "host" section of the IP address
+        s = limit(int(start[-2]), 255)
+        e = limit(int(end[-2]) + 1, 255)
+        host1 = list(range(s, e))
+
+        # Get the second part of the "host" section of the IP address
+        s = limit(int(start[-1]), 255)
+        e = limit(int(end[-1]) + 1, 255)
+        host2 = list(range(s, e))
+
+        # Loop through the requested ranges and append the range of IP addresses to self.hosts_list
+        for i in host1:
+            for j in host2:
+                address = f"{network1}.{network2}.{i}.{j}"
+                self.hosts_list.append(address)
+
     def results(self):
         if self.open:
             print("[+] Open ports:")
@@ -89,6 +123,13 @@ class ScanQuery:
                 print(f"[+] {item}")
         else:
             print("[+] No open ports found.")
+
+
+def limit(input_value: int, limit_value) -> int:
+    if input_value > limit_value:
+        return limit_value
+    else:
+        return input_value
 
 
 if __name__ == "__main__":
