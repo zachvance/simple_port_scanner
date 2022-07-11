@@ -1,6 +1,6 @@
-# Simple Port Scanner
-
 <img src="https://github.com/zachvance/simple_port_scanner/blob/main/images/banner.png" alt="Banner" width="1000"/>
+
+# Simple Port Scanner
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
  [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
