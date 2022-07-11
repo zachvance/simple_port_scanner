@@ -9,8 +9,9 @@ A simple port scanner utility, written in python using sockets and threading.
 
 ## Background
 I was looking for another small project to learn from and try something new. I ended up settling on a port scanner -
-as suggested by this projects list - since I'd like to have a better understanding of networking concepts, and I would
-have a practical excuse to experiment with the sockets module (which I have not used before).
+as suggested by [this](https://github.com/kurogai/100-redteam-projects) projects list - since I'd like to have a
+better understanding of networking concepts, and I would have a practical excuse to experiment with the sockets
+module (which I have not used before).
 
 After skimming through the sockets documentation, and testing out some code based on their examples, I decided that I
 need only create a `socket.socket()` instance, and connect to a port `using socket.connect_ex()` and check the result to
